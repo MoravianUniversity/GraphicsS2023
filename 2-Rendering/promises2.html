@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Promises Demo</title>
+        <script>
+            // Don't worry about this first line
+            let p = Promise.resolve('Hello World');
+
+            // Chain all of the steps together
+            p.then(r => 'How are you?').then(r => r + "\nI am fine.").then(r => r + "\nGreat.").then(console.log)
+        </script>
+    </head>
+    <body>No HTML here, just JavaScript. Open the console to see the output.</body>
+</html>

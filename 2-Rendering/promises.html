@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Promises Demo</title>
+        <script>
+            // Don't worry about this first line
+            let p1 = Promise.resolve('Hello World');
+
+            // Once Promise #1 completes go onto step 2
+            let p2 = p1.then(
+                function step2(result) {
+                    console.log('Promise Step 2', result);
+                    return 'How are you?';
+                }
+            );
+
+            // Once Promise #2 completes go onto step 3 which has 2 things that follow
+            let p3a = p2.then(
+                function step3a(result) {
+                    console.log('Promise Step 3a', result);
+                }
+            );
+
+            let p3b = p2.then(
+                function step3b(result) {
+                    console.log('Promise Step 3b', result);
+                    return "I am fine";
+                }
+            );
+
+            // Each Promise #3 has a final Promise after it
+            let p4a = p3a.then(
+                // "function name(result) { ... }" can be simplified to "(result) => { ... }"
+                // if we don't need to ever call it by name
+                (result) => {
+                    console.log('Promise Step 4a', result);
+                    return "Hello?";
+                }
+            );
+
+            let p4b = p3b.then(
+                (result) => {
+                    console.log('Promise Step 4b', result);
+                    return "Great!";
+                }
+            );
+
+            // Once both Promises for #4 are done do Promise #5
+            let p5 = Promise.all([p4a, p4b]).then(
+                (result) => {
+                    console.log('Promise Step 5', result);
+                    return "Done";
+                }
+            );
+
+            // We also log from the base as well
+            console.log("After setting up promises the step 5 promise is:", p5);
+        </script>
+    </head>
+    <body>No HTML here, just JavaScript. Open the console to see the output.</body>
+</html>
