@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <title>Convert OBJ to JSON</title>
+        <script>
+/**
+ * Convert OBJ data (as a single string) to a dictionary containing the
+ * "vertices" and "indices" as two lists. This only uses the vertex and face
+ * data, ignoring all normals, texture coordinates, materials and everything
+ * else. Vertices must be 3D and faces must be triangles.
+ */
+function obj2dict(obj_text) {
+    let vertices = [];
+    let indices = [];
+    for (let line of obj_text.split('\n')) {
+        // remove comments and break up on whitespace
+        let data = line.split('#', 1)[0].trim().split(/\s+/);
+        // skip empty lines
+        if (data.length === 0) { continue }
+        if (data[0] === 'v') {
+            // vertex line
+            if (data.length !== 4)
+                throw `All vertices must be 3D, vertex ${vertices.length/3} is ${data.length-1}D`;
+            vertices.push(...data.slice(1).map(x => +x));
+        } else if (data[0] === 'f') {
+            // face line
+            if (data.length !== 4)
+                throw `All faces must be triangles, face ${indices.length/3} has ${data.length-1} vertices`;
+            indices.push(...data.slice(1).map(x => parseInt(x.split('/', 1)[0])-1));
+        } else {
+            // all other lines are ignored
+            console.debug('ignoring', line);
+        }
+    }
+    // return the results
+    return {"vertices": vertices, "indices": indices};
+}
+
+/** Save ('download') a text file with the given filename. */
+function save(text, filename) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+}
+
+/** Get a filename without the extension. */
+function filenameWithoutExt(filename) {
+    let dot = filename.lastIndexOf(".");
+    return dot > 0 ? filename.substr(0, dot) : filename;
+}
+
+/** Convert an OBJ file 2 a JSON file. */
+function objFile2json(file) {
+    // Get the new file name (remove extension and use .json)
+    filename = `${filenameWithoutExt(file.name)}.json`;
+    // Read the file as text
+    file.text().then((data) => {
+        // Process OBJ data, convert to JSON, and save
+        save(JSON.stringify(obj2dict(data)), filename);
+    }).catch(alert);
+}
+        </script>
+    </head>
+    <body>
+        <h1>Convert OBJ to JSON</h1>
+        <div>
+            <input type="file" id="file">
+            <input type="button" value="Convert!"
+                onclick="objFile2json(document.getElementById('file').files[0])">
+        </div>
+    </body>
+</html>
