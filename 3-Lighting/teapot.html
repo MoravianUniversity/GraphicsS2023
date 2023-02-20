@@ -1,0 +1,60 @@
+<!doctype html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <!-- Give the page a title - make sure it is descriptive! -->
+        <title>3-Lighting: Teapot</title>
+
+        <!-- Load utilities and functions -->
+        <script src="../common/utilities.js"></script>
+        <script src="../common/gl-matrix.js"></script>
+
+        <!-- Load the code for this example -->
+        <script src="teapot.js"></script>
+
+        <!-- Style the canvas -->
+        <style type="text/css">
+            body {
+                margin: 0;
+                overflow: no-scroll;
+            }
+            canvas {
+                width: 400px; height: 400px;
+                position: absolute;
+                top: 0; bottom: 0; left: 0; right: 0;
+                margin: auto;
+            }
+            #controls {
+                position: absolute;
+                top: 0; right: 0;
+                padding: 5px;
+                border: 1px solid rgba(0, 0, 0, 0.5);
+                background: rgba(255, 255, 255, 0.5);
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Define the canvas to use for the WebGL example -->
+        <canvas id="webgl-canvas" width="400" height="400">
+            Your browser doesn't support the HTML5 canvas element.
+        </canvas>
+        <div id=controls>
+            <table>
+                <tr><th></th><th>Light</th><th>Material</th></tr>
+                <tr><td>Ambient:</td><td><input type="color" id="light-ambient" value="#ffffff"></td><td><input type="color" id="material-ambient" value="#330000"></td></tr>
+                <tr><td>Diffuse:</td><td><input type="color" id="light-diffuse" value="#ffffff"></td><td><input type="color" id="material-diffuse" value="#a00000"></td></tr>
+                <tr><td>Specular:</td><td><input type="color" id="light-specular" value="#ffffff"></td><td><input type="color" id="material-specular" value="#606060"></td></tr>
+                <tr><td>Shininess:</td><td></td><td><input type="number" id="shininess" min="1", max="250" step="1" size=6 value=5></td></tr>
+            </table>
+            Light Pos: <input type="number" id="light-x" min="-50" max="50" step="0.1" size="3" value="0">
+                <input type="number" id="light-y" min="-50" max="50" step="0.1" size="3" value="0">
+                <input type="number" id="light-z" min="-50" max="50" step="0.1" size="3" value="25">
+                <input type="checkbox" id="light-w" checked><br>
+            Attenuation: <input type="number" id="attenuation-a" min="0" max="5" step="0.1" size="3" value="1">
+                <input type="number" id="attenuation-b" min="0" max="5" step="0.1" size="3" value="0">
+                <input type="number" id="attenuation-c" min="0" max="5" step="0.1" size="3" value="0">
+        </div>
+    </body>
+</html>
