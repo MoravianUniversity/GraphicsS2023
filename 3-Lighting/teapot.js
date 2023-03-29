@@ -49,13 +49,13 @@ window.addEventListener('load', function init() {
         glMatrix.quat.create(), [0, 0, 0], SCALE);
     gl.uniformMatrix4fv(gl.program.uModelViewMatrix, false, mv);
     updateLightPosition();
-    updateLightAttentuation();
+    updateLightAttenuation();
     gl.uniform3fv(gl.program.uLightAmbient, stringToColor(document.getElementById("light-ambient").value));
     gl.uniform3fv(gl.program.uLightDiffuse, stringToColor(document.getElementById("light-diffuse").value));
     gl.uniform3fv(gl.program.uLightSpecular, stringToColor(document.getElementById("light-specular").value));
     gl.uniform3fv(gl.program.uMaterialAmbient, stringToColor(document.getElementById("material-ambient").value));
     gl.uniform3fv(gl.program.uMaterialDiffuse, stringToColor(document.getElementById("material-diffuse").value));
-    gl.uniform3fv(gl.program.uMaterialSpecular, stringToColor(document.getElementById("light-specular").value));
+    gl.uniform3fv(gl.program.uMaterialSpecular, stringToColor(document.getElementById("material-specular").value));
     gl.uniform1f(gl.program.uMaterialShininess, +document.getElementById("shininess").value);
 });
 
@@ -82,10 +82,11 @@ function initProgram() {
 
         void main() {
             vec4 P = uModelViewMatrix * aPosition;
+            P.z *= 0.1; // hack until we learn about projection
 
             vNormalVector = mat3(uModelViewMatrix) * aNormal;
             vLightVector = uLight.w == 1.0 ? P.xyz - uLight.xyz : uLight.xyz;
-            vEyeVector = vec3(0, 0, 1) - P.xyz;
+            vEyeVector = -P.xyz;
 
             gl_Position = P;
         }`
@@ -188,9 +189,9 @@ function initEvents() {
     document.getElementById('light-y').addEventListener('input', updateLightPosition);
     document.getElementById('light-z').addEventListener('input', updateLightPosition);
     document.getElementById('light-w').addEventListener('input', updateLightPosition);
-    document.getElementById('attenuation-a').addEventListener('input', updateLightAttentuation);
-    document.getElementById('attenuation-b').addEventListener('input', updateLightAttentuation);
-    document.getElementById('attenuation-c').addEventListener('input', updateLightAttentuation);
+    document.getElementById('attenuation-a').addEventListener('input', updateLightAttenuation);
+    document.getElementById('attenuation-b').addEventListener('input', updateLightAttenuation);
+    document.getElementById('attenuation-c').addEventListener('input', updateLightAttenuation);
 
 }
 
@@ -202,7 +203,7 @@ function updateLightPosition() {
         document.getElementById('light-w').checked);
 }
 
-function updateLightAttentuation() {
+function updateLightAttenuation() {
     gl.uniform3f(gl.program.uLightAttenuation,
         +document.getElementById('attenuation-a').value,
         +document.getElementById('attenuation-b').value,

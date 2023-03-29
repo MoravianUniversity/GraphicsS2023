@@ -63,7 +63,7 @@ window.addEventListener('load', function init() {
     gl.uniform3fv(gl.program.uLightSpecular, stringToColor(document.getElementById("light-specular").value));
     gl.uniform3fv(gl.program.uMaterialAmbient, stringToColor(document.getElementById("material-ambient").value));
     gl.uniform3fv(gl.program.uMaterialDiffuse, stringToColor(document.getElementById("material-diffuse").value));
-    gl.uniform3fv(gl.program.uMaterialSpecular, stringToColor(document.getElementById("light-specular").value));
+    gl.uniform3fv(gl.program.uMaterialSpecular, stringToColor(document.getElementById("material-specular").value));
     gl.uniform1f(gl.program.uMaterialShininess, +document.getElementById("shininess").value);
 });
 
