@@ -1,0 +1,110 @@
+<!doctype html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <!-- Give the page a title - make sure it is descriptive! -->
+        <title>4-Cameras: Orthographic Projection Demo (solution)</title>
+
+        <!-- Load utilities and functions -->
+        <script src="../common/utilities.js"></script>
+        <script src="../common/gl-matrix.js"></script>
+
+        <!-- Load the code for this example -->
+        <script src="orthographic-solution.js"></script>
+
+        <!-- Style the canvas -->
+        <style type="text/css">
+            body {
+                margin: 0;
+                overflow: no-scroll;
+            }
+            canvas { position: absolute; }
+            input[type=number] { text-align: right; } 
+            #controls, #proj-controls {
+                position: absolute;
+                top: 0;
+                padding: 5px;
+                border: 1px solid rgba(0, 0, 0, 0.5);
+                background: rgba(255, 255, 255, 0.5);
+            }
+            #controls { right: 0; }
+            #proj-controls { left: 0; }
+            #mv-output, #proj-output {
+                position: absolute;
+                bottom: 0;
+                padding: 5px;
+                border: 1px solid rgba(0, 0, 0, 0.5);
+                background: rgba(255, 255, 255, 0.5);
+            }
+            #mv-output { right: 0; }
+            #proj-output { left: 0; }
+            #mv-output table, #proj-output table {
+                border-collapse: collapse;
+            }
+            #mv-output td, #proj-output td {
+                text-align: right;
+                border: 1px solid lightgray;
+                min-width: 2em;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Define the canvas to use for the WebGL example -->
+        <canvas id="webgl-canvas" width="400" height="400">
+            Your browser doesn't support the HTML5 canvas element.
+        </canvas>
+        <div id=controls>
+            <table>
+                <tr><th></th><th>Light</th><th>Material</th></tr>
+                <tr><td>Ambient:</td><td><input type="color" id="light-ambient" value="#ffffff"></td><td><input type="color" id="material-ambient" value="#330000"></td></tr>
+                <tr><td>Diffuse:</td><td><input type="color" id="light-diffuse" value="#ffffff"></td><td><input type="color" id="material-diffuse" value="#a00000"></td></tr>
+                <tr><td>Specular:</td><td><input type="color" id="light-specular" value="#ffffff"></td><td><input type="color" id="material-specular" value="#606060"></td></tr>
+                <tr><td>Shininess:</td><td></td><td><input type="number" id="shininess" min="1", max="250" step="1" size=6 value=5></td></tr>
+            </table>
+            Light Pos: <input type="number" id="light-x" min="-50" max="50" step="0.1" size="3" value="0">
+                <input type="number" id="light-y" min="-50" max="50" step="0.1" size="3" value="0">
+                <input type="number" id="light-z" min="-50" max="50" step="0.1" size="3" value="25">
+                <input type="checkbox" id="light-w" checked><br>
+            Rotation: <input type="number" id="rotation-x" min="-360" max="360" step="22.5" size="4" value="0">°
+                <input type="number" id="rotation-y" min="-360" max="360" step="22.5" size="4" value="0">°
+                <input type="number" id="rotation-z" min="-360" max="360" step="22.5" size="4" value="0">°<br>
+            Translation: <input type="number" id="translation-x" min="-3" max="3" step="0.1" size="3" value="0">
+                <input type="number" id="translation-y" min="-3" max="3" step="0.1" size="3" value="0">
+                <input type="number" id="translation-z" min="-3" max="3" step="0.1" size="3" value="0"><br>
+            Scaling: <input type="number" id="scale-x" min="-3" max="3" step="0.1" size="3" value="1">
+                <input type="number" id="scale-y" min="-3" max="3" step="0.1" size="3" value="1">
+                <input type="number" id="scale-z" min="-3" max="3" step="0.1" size="3" value="1"><br>
+            Origin: <input type="number" id="origin-x" min="-3" max="3" step="0.1" size="3" value="0">
+                <input type="number" id="origin-y" min="-3" max="3" step="0.1" size="3" value="0">
+                <input type="number" id="origin-z" min="-3" max="3" step="0.1" size="3" value="0"><br>
+        </div>
+        <div id=mv-output>
+            <b>Model-View Matrix:</b>
+            <table>
+                <tr><td id="mv1">0</td><td id="mv5">0</td><td id="mv9">0</td><td id="mv13">0</td></tr>
+                <tr><td id="mv2">0</td><td id="mv6">0</td><td id="mv10">0</td><td id="mv14">0</td></tr>
+                <tr><td id="mv3">0</td><td id="mv7">0</td><td id="mv11">0</td><td id="mv15">0</td></tr>
+                <tr><td id="mv4">0</td><td id="mv8">0</td><td id="mv12">0</td><td id="mv16">0</td></tr>
+            </table>
+        </div>
+        <div id=proj-controls>
+            Left: <input type="number" id="left" min="-1000" max="1000" step="0.1" size="4" value="-2"><br>
+            Right: <input type="number" id="right" min="-1000" max="1000" step="0.1" size="4" value="2"><br>
+            Bottom: <input type="number" id="bottom" min="-1000" max="1000" step="0.1" size="4" value="-2"><br>
+            Top: <input type="number" id="top" min="-1000" max="1000" step="0.1" size="4" value="2"><br>
+            Near: <input type="number" id="near" min="-1000" max="1000" step="0.1" size="4" value="2"><br>
+            Far: <input type="number" id="far" min="-1000" max="1000" step="0.1" size="4" value="-2"><br>
+        </div>
+        <div id=proj-output>
+            <b>Projection Matrix:</b>
+            <table>
+                <tr><td id="proj1">0</td><td id="proj5">0</td><td id="proj9">0</td><td id="proj13">0</td></tr>
+                <tr><td id="proj2">0</td><td id="proj6">0</td><td id="proj10">0</td><td id="proj14">0</td></tr>
+                <tr><td id="proj3">0</td><td id="proj7">0</td><td id="proj11">0</td><td id="proj15">0</td></tr>
+                <tr><td id="proj4">0</td><td id="proj8">0</td><td id="proj12">0</td><td id="proj16">0</td></tr>
+            </table>
+        </div>
+    </body>
+</html>
