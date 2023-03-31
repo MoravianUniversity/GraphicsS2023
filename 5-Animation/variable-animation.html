@@ -1,0 +1,49 @@
+<!doctype html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <!-- Give the page a title - make sure it is descriptive! -->
+        <title>5-Animation: Variable Animation</title>
+
+        <!-- Load utilities and functions -->
+        <script src="../common/utilities.js"></script>
+        <script src="../common/gl-matrix.js"></script>
+
+        <!-- Load the code for this example -->
+        <script src="variable-animation.js"></script>
+
+        <!-- Style the canvas -->
+        <style type="text/css">
+            body {
+                margin: 0;
+                overflow: no-scroll;
+            }
+            canvas {
+                width: 400px; height: 400px;
+                position: absolute;
+                top: 0; bottom: 0; left: 0; right: 0;
+                margin: auto;
+                border: 1px solid black;
+            }
+            input[type=number] { text-align: right; } 
+            #controls {
+                position: absolute;
+                top: 0; right: 0;
+                padding: 5px;
+                border: 1px solid rgba(0, 0, 0, 0.5);
+                background: rgba(255, 255, 255, 0.5);
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Define the canvas to use for the WebGL example -->
+        <canvas id="webgl-canvas" width="400" height="400">
+            Your browser doesn't support the HTML5 canvas element.
+        </canvas>
+        <div id="controls">
+            Speed: <input id="speed" type="range" value="0.1" min="0" max="1" step="0.1">
+        </div>
+    </body>
+</html>
