@@ -1,0 +1,64 @@
+<!doctype html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <!-- Give the page a title - make sure it is descriptive! -->
+        <title>5-Animation: Mouse Events (solution)</title>
+
+        <!-- Load utilities and functions -->
+        <script src="../common/utilities.js"></script>
+        <script src="../common/gl-matrix.js"></script>
+
+        <!-- Load the code for this example -->
+        <script src="mouse-events-solution.js"></script>
+
+        <!-- Style the canvas -->
+        <style type="text/css">
+            body {
+                margin: 0;
+                overflow: no-scroll;
+            }
+            canvas {
+                width: 400px; height: 400px;
+                position: absolute;
+                top: 0; bottom: 0; left: 0; right: 0;
+                margin: auto;
+                border: 1px solid black;
+            }
+            #mv-output, #proj-output {
+                position: absolute;
+                bottom: 0;
+                padding: 5px;
+                border: 1px solid rgba(0, 0, 0, 0.5);
+                background: rgba(255, 255, 255, 0.5);
+            }
+            #mv-output { right: 0; }
+            #proj-output { left: 0; }
+            #mv-output table, #proj-output table {
+                border-collapse: collapse;
+            }
+            #mv-output td, #proj-output td {
+                text-align: right;
+                border: 1px solid lightgray;
+                min-width: 2em;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Define the canvas to use for the WebGL example -->
+        <canvas id="webgl-canvas" width="400" height="400">
+            Your browser doesn't support the HTML5 canvas element.
+        </canvas>
+        <div id=mv-output>
+            <b>Model-View Matrix:</b>
+            <table>
+                <tr><td id="mv1">0</td><td id="mv5">0</td><td id="mv9">0</td><td id="mv13">0</td></tr>
+                <tr><td id="mv2">0</td><td id="mv6">0</td><td id="mv10">0</td><td id="mv14">0</td></tr>
+                <tr><td id="mv3">0</td><td id="mv7">0</td><td id="mv11">0</td><td id="mv15">0</td></tr>
+                <tr><td id="mv4">0</td><td id="mv8">0</td><td id="mv12">0</td><td id="mv16">0</td></tr>
+            </table>
+        </div>
+    </body>
+</html>

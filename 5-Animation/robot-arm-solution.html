@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Give the page a title - make sure it is descriptive! -->
+        <title>Example Using Hierarchy to Model a Robot Arm</title>
+
+        <!-- Load utilities and functions -->
+        <script src="../common/gl-matrix.js"></script>
+        <script src="../common/utilities.js"></script>
+
+        <!-- Load the code for this example -->
+        <script src="tools.js"></script>
+        <script src="robot-arm-solution.js"></script>
+
+        <style>
+        body {
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            background: url(http://upload.wikimedia.org/wikipedia/commons/5/5d/Checker-16x16.png) repeat;
+            text-align: center;
+        }
+        canvas {
+            margin: 0 auto;
+        }
+        #toolbar {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            padding: 0.25em;
+            background-color: rgba(255,255,255,0.5);
+            text-align: right;
+            font-size: 0.75em;
+        }
+        select, button, input {
+            vertical-align: middle;
+        }
+        input[type="range"], input[type="number"] {
+            width: 40px;
+            text-align: right;
+        }
+        </style>
+    </head>
+    <body>
+        <!-- Define the canvas to use for the WebGL example -->
+        <canvas id="webgl-canvas">
+            Your browser doesn't support HTML5 canvas element
+        </canvas>
+        <div id="toolbar">
+          <label for="base-angle">Base Angle: <input type="range" id="base-angle" value="45" min="-90" max="90" step="1"></label>
+          <label for="lower-angle">Lower Arm Angle: <input type="range" id="lower-angle" value="45" min="0" max="90" step="1"></label>
+          <label for="upper-angle">Upper Arm Angle: <input type="range" id="upper-angle" value="45" min="0" max="90" step="1"></label>
+        </div>
+    </body>
+</html>
