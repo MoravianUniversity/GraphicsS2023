@@ -107,8 +107,6 @@ function initProgram() {
             vec3 L = normalize(vLightVector);
             vec3 E = normalize(vEyeVector);
 
-            float d = length(vLightVector);
-
             // Compute lighting
             float diffuse = dot(-L, N);
             float specular = 0.0;

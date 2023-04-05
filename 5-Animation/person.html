@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Give the page a title - make sure it is descriptive! -->
+        <title>Example Using Scene Graph to Model a Person</title>
+
+        <!-- Load utilities and functions -->
+        <script src="../common/gl-matrix.js"></script>
+        <script src="../common/utilities.js"></script>
+
+        <!-- Load the code for this example -->
+        <script src="tools.js"></script>
+        <script src="person.js"></script>
+
+        <style>
+        body {
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            background: url(http://upload.wikimedia.org/wikipedia/commons/5/5d/Checker-16x16.png) repeat;
+            text-align: center;
+        }
+        canvas {
+            margin: 0 auto;
+        }
+        #toolbar {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            padding: 0.25em;
+            background-color: rgba(255,255,255,0.5);
+            border: 1px solid black;
+            text-align: right;
+            font-size: 0.85em;
+        }
+        select, button, input {
+            vertical-align: middle;
+        }
+        input[type="range"], input[type="number"] {
+            width: 40px;
+            text-align: right;
+        }
+        </style>
+    </head>
+    <body>
+        <!-- Define the canvas to use for the WebGL example -->
+        <canvas id="webgl-canvas">
+            Your browser doesn't support HTML5 canvas element
+        </canvas>
+        <div id="toolbar">
+          <label for="body-angle">Body: <input type="range" id="body-angle" value="0" min="0" max="360" step="1"></label><br>
+          Head:
+          <label for="yes-angle">Yes: <input type="range" id="yes-angle" value="0" min="-30" max="90" step="1"></label>
+          <label for="no-angle">No: <input type="range" id="no-angle" value="0" min="-80" max="80" step="1"></label><br>
+          Right Arm:
+          Shoulder: <input type="range" id="r-shoulder-x-angle" value="0" min="-75" max="75" step="1">
+          <input type="range" id="r-shoulder-y-angle" value="0" min="0" max="180" step="1">
+          <input type="range" id="r-shoulder-z-angle" value="135" min="0" max="180" step="1">
+          <label for="r-elbow-angle">Elbow: <input type="range" id="r-elbow-angle" value="45" min="0" max="135" step="1"></label>
+          Hand: <input type="range" id="r-hand-x-angle" value="0" min="-45" max="45" step="1">
+          <input type="range" id="r-hand-y-angle" value="0" min="-90" max="90" step="1">
+          <input type="range" id="r-hand-z-angle" value="0" min="-45" max="45" step="1"><br>
+          Left Arm:
+          Shoulder: <input type="range" id="l-shoulder-x-angle" value="0" min="-75" max="75" step="1">
+          <input type="range" id="l-shoulder-y-angle" value="0" min="-180" max="0" step="1">
+          <input type="range" id="l-shoulder-z-angle" value="-135" min="-180" max="0" step="1">
+          <label for="l-elbow-angle">Elbow: <input type="range" id="l-elbow-angle" value="-45" min="-135" max="0" step="1"></label>
+          Hand: <input type="range" id="l-hand-x-angle" value="0" min="-45" max="45" step="1">
+          <input type="range" id="l-hand-y-angle" value="0" min="-90" max="90" step="1">
+          <input type="range" id="l-hand-z-angle" value="0" min="-45" max="45" step="1"><br>
+          Right Leg:
+          <input type="range" id="r-leg-x-angle" value="0" min="-75" max="75" step="1">
+          <input type="range" id="r-leg-y-angle" value="0" min="-135" max="45" step="1">
+          <input type="range" id="r-leg-z-angle" value="0" min="-45" max="45" step="1">
+          <label for="r-knee-angle">Knee: <input type="range" id="r-knee-angle" value="0" min="-2" max="160" step="1"></label>
+          Ankle: <input type="range" id="r-ankle-x-angle" value="0" min="-30" max="90" step="1">
+          <input type="range" id="r-ankle-y-angle" value="0" min="-45" max="45" step="1">
+          <input type="range" id="r-ankle-z-angle" value="0" min="-20" max="20" step="1"><br>
+          Left Leg:
+          <input type="range" id="l-leg-x-angle" value="0" min="-75" max="75" step="1">
+          <input type="range" id="l-leg-y-angle" value="0" min="-45" max="135" step="1">
+          <input type="range" id="l-leg-z-angle" value="0" min="-45" max="45" step="1">
+          <label for="l-knee-angle">Knee: <input type="range" id="l-knee-angle" value="0" min="-2" max="160" step="1"></label>
+          Ankle: <input type="range" id="l-ankle-x-angle" value="0" min="-30" max="90" step="1">
+          <input type="range" id="l-ankle-y-angle" value="0" min="-45" max="45" step="1">
+          <input type="range" id="l-ankle-z-angle" value="0" min="-20" max="20" step="1">
+        </div>
+    </body>
+</html>
