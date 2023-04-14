@@ -1,0 +1,83 @@
+<!doctype html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <!-- Give the page a title - make sure it is descriptive! -->
+        <title>6-Blending: Blending with Ordering (solution)</title>
+
+        <!-- Load utilities and functions -->
+        <script src="../common/utilities.js"></script>
+        <script src="../common/gl-matrix.js"></script>
+
+        <!-- Load the code for this example -->
+        <script src="blending-ordered-solution.js"></script>
+
+        <!-- Style the canvas -->
+        <style type="text/css">
+            body {
+                margin: 0;
+                overflow: no-scroll;
+                background: url(https://upload.wikimedia.org/wikipedia/commons/5/5d/Checker-16x16.png) repeat;
+            }
+            canvas {
+                position: absolute;
+                top: 0; bottom: 0; left: 0; right: 0;
+            }
+            #controls {
+                position: absolute;
+                top: 0; right: 0;
+                padding: 5px;
+                border: 1px solid rgba(0, 0, 0, 0.5);
+                background: rgba(255, 255, 255, 0.5);
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Define the canvas to use for the WebGL example -->
+        <canvas id="webgl-canvas" width="400" height="400">
+            Your browser doesn't support the HTML5 canvas element.
+        </canvas>
+        <div id=controls>
+            <table>
+                <tr><td>Cube Color:</td><td><input type="color" id="cube-color" value="#008000"></td><td><input type="number" id="cube-alpha" min="0", max="1" step="0.05" size=4 value=0.5></td></tr>
+                <tr><td>Tetra Color:</td><td><input type="color" id="tetra-color" value="#0000ff"></td><td><input type="number" id="tetra-alpha" min="0", max="1" step="0.05" size=4 value=0.5></td></tr>
+                <tr><td>Depth-Testing?</td><td colspan=2><input type="checkbox" id="depth-testing"></td></tr>
+                <tr><td>Culling:</td><td colspan=2><select id="culling">
+                    <option value="NONE">none</option>
+                    <option value="FRONT">front</option>
+                    <option value="BACK">back</option>
+                    <option value="FRONT_AND_BACK">front-and-back</option>
+                </select></td></tr>
+                <tr><td>Blending?</td><td colspan=2><input type="checkbox" id="blending"></td></tr>
+                <tr><td>Source Factor:</td><td colspan=2><select id="src-factor">
+                    <option value="ZERO">0</option>
+                    <option value="ONE" selected>1</option>
+                    <option value="SRC_COLOR">S</option>
+                    <option value="ONE_MINUS_SRC_COLOR">1-S</option>
+                    <option value="DST_COLOR">D</option>
+                    <option value="ONE_MINUS_DST_COLOR">1-D</option>
+                    <option value="SRC_ALPHA">Sₐ</option>
+                    <option value="ONE_MINUS_SRC_ALPHA">1-Sₐ</option>
+                    <option value="DST_ALPHA">Dₐ</option>
+                    <option value="ONE_MINUS_DST_ALPHA">1-Dₐ</option>
+                    <option value="SRC_ALPHA_SATURATE">min(Sₐ, 1-Dₐ)</option>
+                </select></td></tr>
+                <tr><td>Destination Factor:</td><td colspan=2><select id="dst-factor">
+                    <option value="ZERO">0</option>
+                    <option value="ONE" selected>1</option>
+                    <option value="SRC_COLOR">S</option>
+                    <option value="ONE_MINUS_SRC_COLOR">1-S</option>
+                    <option value="DST_COLOR">D</option>
+                    <option value="ONE_MINUS_DST_COLOR">1-D</option>
+                    <option value="SRC_ALPHA">Sₐ</option>
+                    <option value="ONE_MINUS_SRC_ALPHA">1-Sₐ</option>
+                    <option value="DST_ALPHA">Dₐ</option>
+                    <option value="ONE_MINUS_DST_ALPHA">1-Dₐ</option>
+                    <option value="SRC_ALPHA_SATURATE">min(Sₐ, 1-Dₐ)</option>
+                </select></td></tr>
+            </table>
+        </div>
+    </body>
+</html>
