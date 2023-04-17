@@ -291,7 +291,7 @@ function initEvents() {
     gl.canvas.addEventListener('mousedown', onMouseDown);
     gl.canvas.addEventListener('wheel', onMouseWheel);
     document.getElementById('texture').addEventListener('input', () => {
-        gl.uniform1i(gl.program.uTexture, +document.getElementById('texture').value);
+        // TODO: upload texture value to uniform
     });
 }
 
