@@ -378,10 +378,6 @@ function render() {
     let [vao, count, mode, texture1, texture2] = obj;
 
     // TODO: Activate and bind both textures
-    gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, texture1);
-    gl.activeTexture(gl.TEXTURE1);
-    gl.bindTexture(gl.TEXTURE_2D, texture2);
 
     // Draw
     gl.bindVertexArray(vao);
