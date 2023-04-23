@@ -1,0 +1,82 @@
+<!doctype html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <!-- Give the page a title - make sure it is descriptive! -->
+        <title>7-Textures: Parameters</title>
+
+        <!-- Load utilities and functions -->
+        <script src="../common/utilities.js"></script>
+        <script src="../common/gl-matrix.js"></script>
+
+        <!-- Load the code for this example -->
+        <script src="parameters.js"></script>
+        <style>
+            body {
+                margin: 0;
+                overflow: hidden;
+            }
+            #controls {
+                position: absolute;
+                top: 0; right: 0;
+                padding: 5px;
+                border: 1px solid rgba(0, 0, 0, 0.5);
+                background: rgba(255, 255, 255, 0.5);
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Define the canvas to use for the WebGL example -->
+        <canvas id="webgl-canvas" width="400" height="400">
+            Your browser doesn't support the HTML5 canvas element.
+        </canvas>
+        <div id=controls>
+            <table>
+                <tr>
+                    <td>Texture:</td>
+                    <td><select id="texture">
+                        <option value="0" selected>Checkboard 4x4</option>
+                        <option value="1" selected>Checkboard 32x32</option>
+                        <option value="2">WebGL Logo</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td>Minification:</td>
+                    <td><select id="min">
+                        <option value="NEAREST">NEAREST</option>
+                        <option value="LINEAR">LINEAR</option>
+                        <option value="NEAREST_MIPMAP_NEAREST">NEAREST-MIPMAP-NEAREST</option>
+                        <option value="LINEAR_MIPMAP_NEAREST">LINEAR-MIPMAP-NEAREST</option>
+                        <option value="NEAREST_MIPMAP_LINEAR">NEAREST-MIPMAP-LINEAR</option>
+                        <option value="LINEAR_MIPMAP_LINEAR" selected>LINEAR-MIPMAP-LINEAR</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td>Magnification:</td>
+                    <td><select id="mag">
+                        <option value="NEAREST">NEAREST</option>
+                        <option value="LINEAR" selected>LINEAR</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td>S Wrapping:</td>
+                    <td><select id="wrap-s">
+                        <option value="REPEAT" selected>REPEAT</option>
+                        <option value="MIRRORED_REPEAT">MIRRORED_REPEAT</option>
+                        <option value="CLAMP_TO_EDGE">CLAMP_TO_EDGE</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td>T Wrapping:</td>
+                    <td><select id="wrap-t">
+                        <option value="REPEAT" selected>REPEAT</option>
+                        <option value="MIRRORED_REPEAT">MIRRORED_REPEAT</option>
+                        <option value="CLAMP_TO_EDGE">CLAMP_TO_EDGE</option>
+                    </select></td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>
